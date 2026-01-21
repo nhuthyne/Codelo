@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BH InC. Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* (Giữ nguyên CSS phần trước cậu đã ưng ý, anh chỉ thêm phần table cho Admin/Support) */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { display: flex; height: 100vh; background-color: #f8f9fa; }
+
+        /* Sidebar */
+        .sidebar { width: 250px; background: white; padding: 20px; display: flex; flex-direction: column; border-right: 1px solid #eee; }
+        .logo { font-size: 24px; font-weight: 800; color: #3b82f6; margin-bottom: 40px; text-align: center; }
+        .menu-title { font-size: 12px; color: #9ca3af; margin-top: 20px; margin-bottom: 10px; font-weight: bold; text-transform: uppercase; }
+        .menu-item { padding: 12px 15px; color: #6b7280; text-decoration: none; border-radius: 10px; margin-bottom: 5px; display: flex; align-items: center; transition: 0.2s;}
+        .menu-item:hover, .menu-item.active { background-color: #eff6ff; color: #3b82f6; font-weight: 600; }
+        .menu-item i { width: 25px; }
+
+        /* Main Content */
+        .main-content { flex: 1; padding: 30px; overflow-y: auto; }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+        
+        /* Grid cho Free Service */
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+        .card { background: white; padding: 20px; border-radius: 16px; border: 1px solid #f3f4f6; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
+        .card-icon { font-size: 24px; padding: 10px; border-radius: 10px; margin-bottom: 15px; display: inline-block; }
+        .btn { display: block; width: 100%; padding: 10px; text-align: center; border-radius: 8px; text-decoration: none; background: #f3f4f6; color: #4b5563; margin-top: 15px;}
+        
+        /* Bảng cho phần Hỗ trợ / Admin (Table Style V2Board) */
+        .data-table { width: 100%; border-collapse: collapse; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+        .data-table th, .data-table td { padding: 15px; text-align: left; border-bottom: 1px solid #f3f4f6; }
+        .data-table th { background: #f9fafb; font-weight: 600; color: #374151; }
+        .status-badge { padding: 5px 10px; border-radius: 20px; font-size: 12px; font-weight: bold; }
+        .status-pending { background: #fef3c7; color: #d97706; } /* Màu vàng chờ xử lý */
+        .status-done { background: #ecfdf5; color: #10b981; } /* Màu xanh xong */
+
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <div class="logo">BH InC.</div>
+        
+        <div class="menu-title">Cá nhân</div>
+        <a href="#" class="menu-item active"><i class="fas fa-home"></i> Trang chủ (Free)</a>
+        
+        <div class="menu-title">Nâng cấp</div>
+        <a href="#" class="menu-item"><i class="fas fa-gem" style="color: #f59e0b;"></i> Kho Vũ Khí (Store)</a>
+        <a href="#" class="menu-item"><i class="fas fa-file-invoice-dollar"></i> Lịch sử nạp</a>
+
+        <div class="menu-title">Hệ thống</div>
+        <a href="#" class="menu-item"><i class="fas fa-headset"></i> Hỗ trợ (Ticket)</a>
+        <a href="#" class="menu-item"><i class="fas fa-cog"></i> Cài đặt</a>
+        
+        <div class="menu-title" style="color: red;">Quản trị viên</div>
+        <a href="#" class="menu-item"><i class="fas fa-users-cog"></i> Quản lý User</a>
+    </div>
+
+    <div class="main-content">
+        <div class="header">
+            <h2>Trang chủ</h2>
+            <div>
+                <span style="margin-right: 15px;">Xin chào, <b>Bảo Hy</b></span>
+                <i class="fas fa-bell" style="color: #9ca3af;"></i>
+            </div>
+        </div>
+
+        <div class="grid-container">
+            <div class="card">
+                <div class="card-icon" style="background: #ecfdf5; color: #10b981;"><i class="fas fa-wifi"></i></div>
+                <h3>Server Free 01</h3>
+                <p>Tốc độ ổn định, phù hợp tra cứu tài liệu.</p>
+                <a href="#" class="btn">Kết nối</a>
+            </div>
+            <div class="card">
+                <div class="card-icon" style="background: #eff6ff; color: #3b82f6;"><i class="fas fa-code"></i></div>
+                <h3>Tools HTML</h3>
+                <p>Bộ công cụ hỗ trợ code web cá nhân.</p>
+                <a href="#" class="btn">Sử dụng</a>
+            </div>
+        </div>
+
+        <h3 style="margin-top: 40px; margin-bottom: 15px;">Danh sách yêu cầu hỗ trợ (Minh họa)</h3>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Tiêu đề</th>
+                    <th>Ngày tạo</th>
+                    <th>Trạng thái</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>#1023</td>
+                    <td>Không truy cập được Server 01</td>
+                    <td>21/01/2026</td>
+                    <td><span class="status-badge status-pending">Đang xử lý</span></td>
+                </tr>
+                <tr>
+                    <td>#1022</td>
+                    <td>Xin code mẫu Dashboard</td>
+                    <td>20/01/2026</td>
+                    <td><span class="status-badge status-done">Đã xong</span></td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+</body>
+</html>
