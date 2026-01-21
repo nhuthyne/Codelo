@@ -15,7 +15,6 @@
         }
         .logo { text-align: center; font-size: 28px; font-weight: 800; color: #3b82f6; margin-bottom: 30px; }
         
-        /* Tab chuyển đổi */
         .tabs { display: flex; margin-bottom: 20px; border-bottom: 2px solid #f3f4f6; }
         .tab {
             flex: 1; text-align: center; padding: 10px; cursor: pointer;
@@ -23,7 +22,6 @@
         }
         .tab.active { color: #3b82f6; border-bottom: 2px solid #3b82f6; }
 
-        /* Input form */
         .form-group { margin-bottom: 15px; }
         .form-input {
             width: 100%; padding: 12px; border: 1px solid #e5e7eb;
@@ -54,7 +52,9 @@
     <div id="login-form">
         <div class="form-group"><input type="email" class="form-input" placeholder="Email hoặc Tên tài khoản"></div>
         <div class="form-group"><input type="password" class="form-input" placeholder="Mật khẩu"></div>
-        <button class="btn-submit">Truy cập hệ thống</button>
+        
+        <button class="btn-submit" onclick="window.location.href='dashboard.html'">Truy cập hệ thống</button>
+        
         <div class="forgot-pass"><a href="#" style="color: inherit;">Quên mật khẩu?</a></div>
     </div>
 
@@ -62,13 +62,13 @@
         <div class="form-group"><input type="text" class="form-input" placeholder="Tên hiển thị (VD: Bảo Hy)"></div>
         <div class="form-group"><input type="email" class="form-input" placeholder="Email của bạn"></div>
         <div class="form-group"><input type="password" class="form-input" placeholder="Mật khẩu"></div>
-        <button class="btn-submit">Tạo tài khoản mới</button>
+        
+        <button class="btn-submit" onclick="window.location.href='dashboard.html'">Tạo tài khoản mới</button>
     </div>
 </div>
 
 <script>
     function switchTab(tab) {
-        // Hàm JS đơn giản để chuyển tab
         const loginForm = document.getElementById('login-form');
         const regForm = document.getElementById('register-form');
         const tabs = document.querySelectorAll('.tab');
