@@ -3,164 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BH InC. Dashboard</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Đăng nhập - BH InC.</title>
     <style>
-        /* --- CẤU HÌNH CƠ BẢN --- */
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-        body { display: flex; height: 100vh; background-color: #f8f9fa; }
-
-        /* --- SIDEBAR (GIỮ NGUYÊN) --- */
-        .sidebar {
-            width: 250px;
-            background-color: #fff;
-            padding: 20px;
-            box-shadow: 2px 0 10px rgba(0,0,0,0.03);
-            display: flex; flex-direction: column;
+        body {
+            background: #f3f4f6; display: flex; justify-content: center; align-items: center;
+            height: 100vh; margin: 0; font-family: 'Segoe UI', sans-serif;
         }
-        .logo { font-size: 24px; font-weight: 800; color: #3b82f6; margin-bottom: 40px; text-align: center; letter-spacing: 1px;}
-        .menu-item {
-            padding: 12px 15px; color: #6b7280; text-decoration: none;
-            border-radius: 10px; margin-bottom: 5px; transition: 0.3s;
-            display: flex; align-items: center; font-weight: 500;
+        .auth-container {
+            background: white; padding: 40px; border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05); width: 100%; max-width: 400px;
         }
-        .menu-item i { margin-right: 12px; width: 20px; }
-        .menu-item:hover, .menu-item.active { background-color: #eff6ff; color: #3b82f6; }
-
-        /* --- MAIN CONTENT --- */
-        .main-content { flex: 1; padding: 30px; overflow-y: auto; }
+        .logo { text-align: center; font-size: 28px; font-weight: 800; color: #3b82f6; margin-bottom: 30px; }
         
-        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
-        .user-name { font-weight: bold; font-size: 18px; color: #1f2937; }
-
-        /* Tiêu đề từng khu vực */
-        .section-title {
-            font-size: 18px; font-weight: 700; color: #374151;
-            margin-bottom: 15px; margin-top: 30px;
-            display: flex; align-items: center;
+        /* Tab chuyển đổi */
+        .tabs { display: flex; margin-bottom: 20px; border-bottom: 2px solid #f3f4f6; }
+        .tab {
+            flex: 1; text-align: center; padding: 10px; cursor: pointer;
+            font-weight: 600; color: #9ca3af;
         }
-        .section-title i { margin-right: 10px; }
+        .tab.active { color: #3b82f6; border-bottom: 2px solid #3b82f6; }
 
-        /* Lưới thẻ (Grid) */
-        .grid-container {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
+        /* Input form */
+        .form-group { margin-bottom: 15px; }
+        .form-input {
+            width: 100%; padding: 12px; border: 1px solid #e5e7eb;
+            border-radius: 10px; outline: none; transition: 0.3s;
         }
-
-        /* --- THẺ CARD CƠ BẢN (MIỄN PHÍ) --- */
-        .card {
-            background: white; padding: 20px; border-radius: 16px;
-            border: 1px solid #f3f4f6;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-            transition: transform 0.2s; position: relative;
-        }
-        .card:hover { transform: translateY(-3px); }
-        .card-icon { font-size: 24px; margin-bottom: 15px; display: inline-block; padding: 10px; border-radius: 10px; }
-        .bg-blue { background: #eff6ff; color: #3b82f6; }
-        .bg-green { background: #ecfdf5; color: #10b981; }
+        .form-input:focus { border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1); }
         
-        .card h3 { font-size: 16px; margin-bottom: 5px; color: #111827; }
-        .card p { font-size: 13px; color: #6b7280; margin-bottom: 15px; }
-        
-        .btn {
-            display: block; width: 100%; padding: 10px; text-align: center;
-            border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 600;
+        .btn-submit {
+            width: 100%; padding: 12px; background: #3b82f6; color: white;
+            border: none; border-radius: 10px; font-weight: bold; cursor: pointer;
+            margin-top: 10px;
         }
-        .btn-free { background-color: #f3f4f6; color: #4b5563; }
-        .btn-free:hover { background-color: #e5e7eb; }
-
-        /* --- THẺ CARD PREMIUM (TRẢ PHÍ) --- */
-        .premium-card {
-            border: 1px solid #fcd34d; /* Viền vàng */
-            background: linear-gradient(to bottom right, #ffffff, #fffbeb);
-        }
-        .badge-vip {
-            position: absolute; top: 15px; right: 15px;
-            background: #f59e0b; color: white;
-            font-size: 10px; font-weight: bold;
-            padding: 4px 8px; border-radius: 20px;
-        }
-        .bg-gold { background: #fef3c7; color: #d97706; }
-        .bg-purple { background: #f3e8ff; color: #9333ea; }
-
-        .btn-buy { background-color: #2563eb; color: white; box-shadow: 0 4px 6px rgba(37, 99, 235, 0.2); }
-        .btn-buy:hover { background-color: #1d4ed8; }
-        
-        .price { font-size: 18px; font-weight: bold; color: #111827; margin-bottom: 10px; display: block;}
-        .old-price { font-size: 12px; text-decoration: line-through; color: #9ca3af; font-weight: normal;}
-
+        .btn-submit:hover { background: #2563eb; }
+        .forgot-pass { text-align: center; margin-top: 15px; font-size: 13px; color: #6b7280; }
+        .hidden { display: none; }
     </style>
 </head>
 <body>
 
-    <div class="sidebar">
-        <div class="logo">BH InC.</div>
-        <a href="#" class="menu-item active"><i class="fas fa-layer-group"></i> Tổng quan</a>
-        <a href="#" class="menu-item"><i class="fas fa-gift"></i> Quà tặng Free</a>
-        <a href="#" class="menu-item"><i class="fas fa-crown"></i> Gói Premium</a>
-        <a href="#" class="menu-item"><i class="fas fa-cog"></i> Cài đặt</a>
+<div class="auth-container">
+    <div class="logo">BH InC.</div>
+    
+    <div class="tabs">
+        <div class="tab active" onclick="switchTab('login')">Đăng Nhập</div>
+        <div class="tab" onclick="switchTab('register')">Đăng Ký</div>
     </div>
 
-    <div class="main-content">
-        <div class="header">
-            <div class="user-name">Xin chào, Bảo Hy 👋</div>
-            <div style="font-size: 14px; color: #6b7280;">Số dư: <span style="color:#2563eb; font-weight:bold;">0 ₫</span></div>
-        </div>
-
-        <div class="section-title">
-            <i class="fas fa-gift" style="color: #10b981;"></i> Khu vực Cộng đồng (Miễn phí)
-        </div>
-        
-        <div class="grid-container">
-            <div class="card">
-                <div class="card-icon bg-green"><i class="fas fa-leaf"></i></div>
-                <h3>Server Tân Châu 01</h3>
-                <p>Tốc độ cơ bản, thích hợp lướt web, đọc báo.</p>
-                <a href="#" class="btn btn-free">Kết nối ngay</a>
-            </div>
-
-            <div class="card">
-                <div class="card-icon bg-blue"><i class="fas fa-tools"></i></div>
-                <h3>Bộ công cụ HTML</h3>
-                <p>Code mẫu và tiện ích hỗ trợ học tập.</p>
-                <a href="#" class="btn btn-free">Truy cập</a>
-            </div>
-        </div>
-
-        <div class="section-title">
-            <i class="fas fa-crown" style="color: #f59e0b;"></i> Cửa hàng Cao cấp (Premium)
-        </div>
-
-        <div class="grid-container">
-            <div class="card premium-card">
-                <div class="badge-vip">VIP</div>
-                <div class="card-icon bg-gold"><i class="fas fa-bolt"></i></div>
-                <h3>Siêu Tốc Gaming</h3>
-                <p>Ping thấp, băng thông không giới hạn.</p>
-                <span class="price">50.000 ₫ <span class="old-price">/tháng</span></span>
-                <a href="#" class="btn btn-buy">Mua ngay</a>
-            </div>
-
-            <div class="card premium-card">
-                <div class="badge-vip">BEST SELLER</div>
-                <div class="card-icon bg-purple"><i class="fas fa-rocket"></i></div>
-                <h3>Gói Học Tập Pro</h3>
-                <p>Truy cập Server riêng, hỗ trợ AI giải bài.</p>
-                <span class="price">20.000 ₫ <span class="old-price">/tháng</span></span>
-                <a href="#" class="btn btn-buy">Nâng cấp</a>
-            </div>
-            
-             <div class="card premium-card">
-                <div class="badge-vip">HOT</div>
-                <div class="card-icon bg-gold"><i class="fas fa-shield-alt"></i></div>
-                <h3>Private Server</h3>
-                <p>Máy chủ riêng tư, bảo mật tuyệt đối.</p>
-                <span class="price">100.000 ₫ <span class="old-price">/tháng</span></span>
-                <a href="#" class="btn btn-buy">USA_USSR_PROTECT</a>
-            </div>
-        </div>
-        
+    <div id="login-form">
+        <div class="form-group"><input type="email" class="form-input" placeholder="Email hoặc Tên tài khoản"></div>
+        <div class="form-group"><input type="password" class="form-input" placeholder="Mật khẩu"></div>
+        <button class="btn-submit">Truy cập hệ thống</button>
+        <div class="forgot-pass"><a href="#" style="color: inherit;">Quên mật khẩu?</a></div>
     </div>
 
+    <div id="register-form" class="hidden">
+        <div class="form-group"><input type="text" class="form-input" placeholder="Tên hiển thị (VD: Bảo Hy)"></div>
+        <div class="form-group"><input type="email" class="form-input" placeholder="Email của bạn"></div>
+        <div class="form-group"><input type="password" class="form-input" placeholder="Mật khẩu"></div>
+        <button class="btn-submit">Tạo tài khoản mới</button>
+    </div>
+</div>
+
+<script>
+    function switchTab(tab) {
+        // Hàm JS đơn giản để chuyển tab
+        const loginForm = document.getElementById('login-form');
+        const regForm = document.getElementById('register-form');
+        const tabs = document.querySelectorAll('.tab');
+
+        if(tab === 'login') {
+            loginForm.classList.remove('hidden');
+            regForm.classList.add('hidden');
+            tabs[0].classList.add('active'); tabs[1].classList.remove('active');
+        } else {
+            loginForm.classList.add('hidden');
+            regForm.classList.remove('hidden');
+            tabs[0].classList.remove('active'); tabs[1].classList.add('active');
+        }
+    }
+</script>
 </body>
 </html>
